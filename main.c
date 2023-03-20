@@ -3,52 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nliman <nliman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/10 19:03:29 by nliman            #+#    #+#             */
-/*   Updated: 2022/12/10 19:15:38 by nliman           ###   ########.fr       */
+/*   Created: 2023/03/12 13:31:32 by anargul           #+#    #+#             */
+/*   Updated: 2023/03/17 17:21:46 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_args(char **av)
+void	ft_set_death_mutex(int c, t_philo *phi, pthread_mutex_t *forks)
+{
+	int i;
+
+	i = 0;
+	while (i < phi->number_of_ph)
+	{
+		phi[i].dth = forks[c];
+		i++;
+	}
+}
+
+void	ft_setting_philos(pthread_mutex_t *forks, t_philo *phi, char **av, int ac)
 {
 	int	i;
 
-	i = 1;
-	while (av[i])
+	i = 0;
+	while (i < ft_atoi(av[1]))
 	{
-		if (is_digit(av[i]) == 0 || ft_atoi(av[i]) <= 0)
-		{
-			printf("you entered invalid argument!\n");
-			return (0);
-		}
+		phi[i].start_time = ft_get_time();
+		phi[i].last_meal_time = phi[i].start_time;
+		phi[i].is_died = 0;
+		phi[i].id = i;
+		phi[i].number_of_ph = ft_atoi(av[1]);
+		//if (phi[i].number_of_ph < 2)
+		//{
+		//	phi->is_died = 1;	
+		//}
+		phi[i].time_to_die = ft_atoi(av[2]);
+		phi[i].time_to_eat = ft_atoi(av[3]);
+		phi[i].time_to_sleep = ft_atoi(av[4]);
+		if (ac == 6)
+			phi[i].size_of_stomach = ft_atoi(av[5]);
+		else
+			phi[i].size_of_stomach = -1;
 		i++;
 	}
-	return (1);
+	ft_set_death_mutex(i, phi, forks);
+	i = 0;
+	while (i < phi->number_of_ph)
+	{
+		phi[i].forks = forks;
+		i++;
+	}
 }
 
-int	main(int ac, char **av)
+void	ft_mutex_init(t_philo *phi)
 {
-	t_philo			*philo;
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	*lock;
+	int	i;
 
+	i = 0;
+	while (i < phi->number_of_ph)
+	{
+		pthread_mutex_init(&phi->forks[i], NULL);
+		i++;
+	}
+}
+
+int main(int ac, char **av)
+{
 	if (ac == 5 || ac == 6)
 	{
-		if (check_args(av))
-		{
-			philo = malloc(sizeof(*philo) * ft_atoi(av[1]));
-			fork = malloc(sizeof(pthread_mutex_t) * ft_atoi(av[1]));
-			lock = malloc(sizeof(pthread_mutex_t));
-			if (!philo || !fork || !lock)
-				return (2);
-			init_philos(philo, av, ac);
-			init_mutex(philo, fork, lock);
-			create_threads(philo);
-			ft_free(philo, fork, lock);
-		}
+		pthread_mutex_t	*forks;
+		t_philo			*phi;
+
+		phi = malloc(sizeof(t_philo) * ft_atoi(av[1]));
+		forks = malloc(sizeof(pthread_mutex_t) * (ft_atoi(av[1]) + 1));
+		ft_setting_philos(forks, phi, av, ac);
+		ft_mutex_init(phi);
+		ft_create_threads(forks, phi);
 	}
 	return (0);
 }
