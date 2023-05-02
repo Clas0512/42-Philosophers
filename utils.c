@@ -6,7 +6,7 @@
 /*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:31:04 by anargul           #+#    #+#             */
-/*   Updated: 2023/03/20 17:46:12 by anargul          ###   ########.fr       */
+/*   Updated: 2023/05/02 19:46:13 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,15 @@ t_time	ft_get_time(void)
 	return (time);
 }
 
-void	ft_sleep_time(int ttime)
+void	ft_sleep_time(t_philo *phi, int ttime)
 {
+	pthread_mutex_lock(&phi->dth);
 	t_time	time;
 
 	time = ft_get_time();
 	while (ft_get_time() - time < (t_time)ttime)
 		usleep(100);
+	pthread_mutex_unlock(&phi->dth);
 }
 
 int	ft_death_check(t_philo  *phi, t_time time)
@@ -59,8 +61,8 @@ int	ft_death_check(t_philo  *phi, t_time time)
 	int	i;
 	//t_time time = ft_get_time();
 
+	pthread_mutex_lock(&phi->dth);
 	i = 0;
-	//pthread_mutex_lock(&phi->dth);
 	while (i < phi->number_of_ph)
 	{
 		//if ((t_time)phi[i].time_to_die < (time - phi[i].last_meal_time))
@@ -72,21 +74,23 @@ int	ft_death_check(t_philo  *phi, t_time time)
 		}
 		i++;
 	}
-	//pthread_mutex_unlock(&phi->dth);
+	pthread_mutex_unlock(&phi->dth);
 	return (-1);
 }
 
 int ft_stomach_check(t_philo *phi)
 {
-		int	i;
+	int	i;
 
+	pthread_mutex_lock(&phi->dth);
 	i = 0;
-	//pthread_mutex_lock(&phi->dth);
-	if (phi[0].size_of_stomach == 0 && phi[phi->number_of_ph - 1].size_of_stomach == 0)
+	//if (phi[0].size_of_stomach == 0 && phi[phi->number_of_ph - 1].size_of_stomach == 0)
+	//	return (-1);
+	while (i < phi->number_of_ph)
 	{
-		pthread_mutex_unlock(&phi->dth);	
-		return (-1);
+		if (phi[i].size_of_stomachs == false)
+			return (0);
+		i++;
 	}
-	//pthread_mutex_unlock(&phi->dth);
-	return (0);
+	return (-1);
 }

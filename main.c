@@ -6,25 +6,26 @@
 /*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:31:32 by anargul           #+#    #+#             */
-/*   Updated: 2023/03/17 17:21:46 by anargul          ###   ########.fr       */
+/*   Updated: 2023/05/02 19:56:14 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_set_death_mutex(int c, t_philo *phi, pthread_mutex_t *forks)
+void	ft_set_death_mutex(int c, t_philo *phi, pthread_mutex_t *dth)
 {
 	int i;
 
 	i = 0;
 	while (i < phi->number_of_ph)
 	{
-		phi[i].dth = forks[c];
+		phi[i].size_of_stomachs = false;
+		phi[i].dth = *dth;
 		i++;
 	}
 }
 
-void	ft_setting_philos(pthread_mutex_t *forks, t_philo *phi, char **av, int ac)
+void	ft_setting_philos(pthread_mutex_t *forks, pthread_mutex_t *dth, t_philo *phi, char **av, int ac)
 {
 	int	i;
 
@@ -49,7 +50,7 @@ void	ft_setting_philos(pthread_mutex_t *forks, t_philo *phi, char **av, int ac)
 			phi[i].size_of_stomach = -1;
 		i++;
 	}
-	ft_set_death_mutex(i, phi, forks);
+	ft_set_death_mutex(i, phi, dth);
 	i = 0;
 	while (i < phi->number_of_ph)
 	{
@@ -76,10 +77,11 @@ int main(int ac, char **av)
 	{
 		pthread_mutex_t	*forks;
 		t_philo			*phi;
+		pthread_mutex_t	dth;
 
 		phi = malloc(sizeof(t_philo) * ft_atoi(av[1]));
-		forks = malloc(sizeof(pthread_mutex_t) * (ft_atoi(av[1]) + 1));
-		ft_setting_philos(forks, phi, av, ac);
+		forks = malloc(sizeof(pthread_mutex_t) * (ft_atoi(av[1])));
+		ft_setting_philos(forks, &dth, phi, av, ac);
 		ft_mutex_init(phi);
 		ft_create_threads(forks, phi);
 	}

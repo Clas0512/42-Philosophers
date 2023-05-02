@@ -6,7 +6,7 @@
 /*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:32:22 by anargul           #+#    #+#             */
-/*   Updated: 2023/03/20 18:05:40 by anargul          ###   ########.fr       */
+/*   Updated: 2023/05/02 19:53:55 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_create_threads(pthread_mutex_t *forks, t_philo *phi)
 	{
 		pthread_mutex_lock(&phi->dth);
 		time = ft_get_time() - phi->start_time;
+		pthread_mutex_unlock(&phi->dth);
 		i = ft_death_check(phi, time);
 		if (i != -1)
 		{

@@ -6,11 +6,13 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 typedef unsigned long long t_time;
 
 typedef struct s_philo
 {
+	bool			size_of_stomachs;
 	t_time			start_time;
 	t_time			last_meal_time;
 	pthread_mutex_t	*forks;
@@ -28,8 +30,8 @@ typedef struct s_philo
 void	ft_eat(t_philo *phi);
 t_time	ft_get_time(void);
 void	ft_create_threads(pthread_mutex_t *forks, t_philo *phi);
-void	ft_sleep_time(int time);
-void	ft_setting_philos(pthread_mutex_t *forks, t_philo *phi, char **av, int ac);
+void	ft_sleep_time(t_philo *phi, int time);
+void	ft_setting_philos(pthread_mutex_t *forks, pthread_mutex_t *dth, t_philo *phi, char **av, int ac);
 void	*ft_manage(void *rtn);
 void	ft_frexit();
 void	ft_mutex_init(t_philo *phi);
