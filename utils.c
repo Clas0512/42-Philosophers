@@ -6,7 +6,7 @@
 /*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:31:04 by anargul           #+#    #+#             */
-/*   Updated: 2023/05/02 19:46:13 by anargul          ###   ########.fr       */
+/*   Updated: 2023/05/04 13:06:27 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,52 +45,27 @@ t_time	ft_get_time(void)
 	return (time);
 }
 
-void	ft_sleep_time(t_philo *phi, int ttime)
+void	ft_sleep_time(int ttime)
 {
-	pthread_mutex_lock(&phi->dth);
 	t_time	time;
 
+	//pthread_mutex_lock(phi->dth);
 	time = ft_get_time();
 	while (ft_get_time() - time < (t_time)ttime)
 		usleep(100);
-	pthread_mutex_unlock(&phi->dth);
+	//pthread_mutex_unlock(phi->dth);
 }
 
-int	ft_death_check(t_philo  *phi, t_time time)
-{
-	int	i;
-	//t_time time = ft_get_time();
-
-	pthread_mutex_lock(&phi->dth);
-	i = 0;
-	while (i < phi->number_of_ph)
-	{
-		//if ((t_time)phi[i].time_to_die < (time - phi[i].last_meal_time))
-		//	phi[i].is_died = 1;
-		if (phi[i].is_died == 1)
-		{
-			//usleep(25);
-			return (i);
-		}
-		i++;
-	}
-	pthread_mutex_unlock(&phi->dth);
-	return (-1);
-}
-
-int ft_stomach_check(t_philo *phi)
+int	is_digit(char *str)
 {
 	int	i;
 
-	pthread_mutex_lock(&phi->dth);
 	i = 0;
-	//if (phi[0].size_of_stomach == 0 && phi[phi->number_of_ph - 1].size_of_stomach == 0)
-	//	return (-1);
-	while (i < phi->number_of_ph)
+	while (str[i] != '\0')
 	{
-		if (phi[i].size_of_stomachs == false)
+		if (('9' <= str[i] && str[i] <= '0'))
 			return (0);
-		i++;
+		i++;	
 	}
-	return (-1);
+	return (1);
 }

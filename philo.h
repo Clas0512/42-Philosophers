@@ -9,6 +9,9 @@
 # include <stdbool.h>
 
 typedef unsigned long long t_time;
+# define AC_RED "\x1b[41;5;197m"
+# define AC_GRN "\x1b[42;5;10m"
+# define AC_GRY "\x1b[47;5;231m"
 
 typedef struct s_philo
 {
@@ -16,7 +19,7 @@ typedef struct s_philo
 	t_time			start_time;
 	t_time			last_meal_time;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	dth;
+	pthread_mutex_t	*dth;
 	pthread_t		thrd;
 	int				is_died;
 	int				id;
@@ -27,18 +30,18 @@ typedef struct s_philo
 	int				size_of_stomach;
 }	t_philo;
 
-void	ft_eat(t_philo *phi);
 t_time	ft_get_time(void);
 void	ft_create_threads(pthread_mutex_t *forks, t_philo *phi);
-void	ft_sleep_time(t_philo *phi, int time);
-void	ft_setting_philos(pthread_mutex_t *forks, pthread_mutex_t *dth, t_philo *phi, char **av, int ac);
+void	ft_sleep_time(int time);
+void	ft_init_philos(pthread_mutex_t *forks, pthread_mutex_t *dth, t_philo *phi, char **av, int ac);
+void	ft_mutex_init(t_philo *phi);
 void	*ft_manage(void *rtn);
 void	ft_frexit();
 void	ft_mutex_init(t_philo *phi);
 void	ft_write(int mod, t_philo *phi, char *str, t_time time);
-//int	ft_blackhole(t_philo *phi);
-int		ft_death_check(t_philo *phi, t_time time);
+int		is_digit(char *str);
 int		ft_atoi(char *str);
+int		ft_death_check(t_philo *phi);
 int		ft_stomach_check(t_philo *phi);
 
 #endif
