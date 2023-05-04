@@ -6,7 +6,7 @@
 /*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 23:06:14 by anargul           #+#    #+#             */
-/*   Updated: 2023/05/04 23:16:00 by anargul          ###   ########.fr       */
+/*   Updated: 2023/05/04 23:50:04 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ void	ft_mutex_init(t_philo *phi, pthread_mutex_t *dth,
 			pthread_mutex_t *forks);
 void	*ft_manage(void *rtn);
 void	ft_write(int mod, t_philo *phi, char *str, t_time time);
+void	one_philo_check(t_philo *phi);
+void	double_check(t_philo *phi, int mod);
 int		is_digit(char *str);
 int		ft_atoi(char *str);
 int		ft_death_check(t_philo *phi, t_time time);
 int		ft_stomach_check(t_philo *phi, t_time time);
+int		ft_check_args(int ac, char **args);
 
 #endif

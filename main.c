@@ -6,29 +6,11 @@
 /*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:31:32 by anargul           #+#    #+#             */
-/*   Updated: 2023/05/04 23:24:44 by anargul          ###   ########.fr       */
+/*   Updated: 2023/05/04 23:48:11 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	ft_check_args(int ac, char **args)
-{
-	int	i;
-
-	if (ac == 5 || ac == 6)
-	{
-		i = 1;
-		while (i < ac)
-		{
-			if (!is_digit(args[i]) || *args[i] == '\0')
-				return (0);
-			i++;
-		}
-		return (1);
-	}
-	return (0);
-}
 
 int	main(int ac, char **av)
 {

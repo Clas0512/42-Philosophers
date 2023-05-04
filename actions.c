@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 23:20:11 by anargul           #+#    #+#             */
-/*   Updated: 2023/05/04 23:20:11 by anargul          ###   ########.fr       */
+/*   Created: 2023/05/04 23:48:44 by anargul           #+#    #+#             */
+/*   Updated: 2023/05/04 23:48:44 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,6 @@ void	last_meal(t_philo *phi)
 {
 	pthread_mutex_lock(phi->dth);
 	phi->last_meal_time = ft_get_time();
-	pthread_mutex_unlock(phi->dth);
-}
-
-void	one_philo_check(t_philo *phi)
-{
-	if (phi->number_of_ph == 1)
-	{
-		ft_sleep_time(phi, phi->time_to_die);
-		phi->is_died = 1;
-	}
-}
-
-void	double_check(t_philo *phi, int mod)
-{
-	pthread_mutex_lock(phi->dth);
-	if (mod == 1)
-	{
-		if (phi->stomach_limit == true && phi->size_of_stomach >= 0)
-			phi->size_of_stomach--;
-	}
-	else
-	{
-		if (phi->time_to_die < (int)(ft_get_time() - phi->last_meal_time))
-			phi->is_died = 1;
-	}
 	pthread_mutex_unlock(phi->dth);
 }
 
