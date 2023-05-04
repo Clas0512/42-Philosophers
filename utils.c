@@ -6,7 +6,7 @@
 /*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:31:04 by anargul           #+#    #+#             */
-/*   Updated: 2023/05/04 13:06:27 by anargul          ###   ########.fr       */
+/*   Updated: 2023/05/04 22:57:33 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,14 @@ t_time	ft_get_time(void)
 	return (time);
 }
 
-void	ft_sleep_time(int ttime)
+void	ft_sleep_time(t_philo *phi, int ttime)
 {
 	t_time	time;
 
-	//pthread_mutex_lock(phi->dth);
 	time = ft_get_time();
-	while (ft_get_time() - time < (t_time)ttime)
+	while (ft_get_time() - time < (t_time)ttime
+		&& (int)(ft_get_time() - time) <= phi->time_to_die)
 		usleep(100);
-	//pthread_mutex_unlock(phi->dth);
 }
 
 int	is_digit(char *str)
@@ -63,9 +62,9 @@ int	is_digit(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (('9' <= str[i] && str[i] <= '0'))
+		if ((str[i] > '9' || str[i] < '0'))
 			return (0);
-		i++;	
+		i++;
 	}
 	return (1);
 }

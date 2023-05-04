@@ -6,7 +6,7 @@
 /*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:31:32 by anargul           #+#    #+#             */
-/*   Updated: 2023/05/04 13:04:09 by anargul          ###   ########.fr       */
+/*   Updated: 2023/05/04 23:24:44 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_check_args(int ac, char **args)
 		i = 1;
 		while (i < ac)
 		{
-			if (!is_digit(args[i]))
+			if (!is_digit(args[i]) || *args[i] == '\0')
 				return (0);
 			i++;
 		}
@@ -30,20 +30,22 @@ int	ft_check_args(int ac, char **args)
 	return (0);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
+	pthread_mutex_t	*forks;
+	t_philo			*phi;
+	pthread_mutex_t	*dth;
+
 	if (ft_check_args(ac, av))
 	{
-		pthread_mutex_t	*forks;
-		t_philo			*phi;
-		pthread_mutex_t	*dth;
-
 		phi = malloc(sizeof(t_philo) * ft_atoi(av[1]));
 		forks = malloc(sizeof(pthread_mutex_t) * (ft_atoi(av[1])));
 		dth = malloc(sizeof(pthread_mutex_t));
-		ft_init_philos(forks, dth, phi, av, ac);
-		ft_mutex_init(phi);
+		ft_init_philos(phi, av, ac);
+		ft_mutex_init(phi, dth, forks);
 		ft_create_threads(forks, phi);
 	}
+	else
+		printf("%sCheck Args\n", AC_RED);
 	return (0);
 }

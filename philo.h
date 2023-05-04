@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/04 23:06:14 by anargul           #+#    #+#             */
+/*   Updated: 2023/05/04 23:16:00 by anargul          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -8,7 +20,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 
-typedef unsigned long long t_time;
+typedef unsigned long long	t_time;
 # define AC_RED "\x1b[41;5;197m"
 # define AC_GRN "\x1b[42;5;10m"
 # define AC_GRY "\x1b[47;5;231m"
@@ -24,24 +36,23 @@ typedef struct s_philo
 	int				is_died;
 	int				id;
 	int				number_of_ph;
-	int 			time_to_die;
+	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				size_of_stomach;
-}	t_philo;
+}					t_philo;
 
 t_time	ft_get_time(void);
 void	ft_create_threads(pthread_mutex_t *forks, t_philo *phi);
-void	ft_sleep_time(int time);
-void	ft_init_philos(pthread_mutex_t *forks, pthread_mutex_t *dth, t_philo *phi, char **av, int ac);
-void	ft_mutex_init(t_philo *phi);
+void	ft_sleep_time(t_philo *phi, int time);
+void	ft_init_philos(t_philo *phi, char **av, int ac);
+void	ft_mutex_init(t_philo *phi, pthread_mutex_t *dth,
+			pthread_mutex_t *forks);
 void	*ft_manage(void *rtn);
-void	ft_frexit();
-void	ft_mutex_init(t_philo *phi);
 void	ft_write(int mod, t_philo *phi, char *str, t_time time);
 int		is_digit(char *str);
 int		ft_atoi(char *str);
-int		ft_death_check(t_philo *phi);
-int		ft_stomach_check(t_philo *phi);
+int		ft_death_check(t_philo *phi, t_time time);
+int		ft_stomach_check(t_philo *phi, t_time time);
 
 #endif
