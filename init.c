@@ -6,7 +6,7 @@
 /*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:55:01 by anargul           #+#    #+#             */
-/*   Updated: 2023/05/04 13:38:32 by anargul          ###   ########.fr       */
+/*   Updated: 2023/05/04 14:51:40 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ void	ft_init_philos(pthread_mutex_t *forks, pthread_mutex_t *dth, t_philo *phi, 
 	while (i < ft_atoi(av[1]))
 	{
 		if (ac == 6)
+		{
+			phi[i].stomach_limit = true;
 			phi[i].size_of_stomach = ft_atoi(av[5]);
+		}
 		else
-			phi[i].size_of_stomach = -1;
+			phi[i].stomach_limit = false;
 		phi[i].start_time = ft_get_time();
 		phi[i].last_meal_time = phi[i].start_time;
 		phi[i].number_of_ph = ft_atoi(av[1]);
@@ -32,7 +35,6 @@ void	ft_init_philos(pthread_mutex_t *forks, pthread_mutex_t *dth, t_philo *phi, 
 		phi[i].forks = forks;
 		phi[i].is_died = 0;
 		phi[i].id = i;
-		phi[i].size_of_stomachs = false;
 		phi[i].dth = dth;
 		i++;
 	}

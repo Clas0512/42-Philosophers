@@ -6,7 +6,7 @@
 /*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 13:32:22 by anargul           #+#    #+#             */
-/*   Updated: 2023/05/04 13:47:58 by anargul          ###   ########.fr       */
+/*   Updated: 2023/05/04 14:51:21 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_create_threads(pthread_mutex_t *forks, t_philo *phi)
 			printf("%s%llu - Philosopher %d is died\n", AC_RED, time, i + 1);
 			break ;
 		}
-		if (ft_stomach_check(phi))
+		if (phi->stomach_limit == true && ft_stomach_check(phi))
 		{
 			printf("%s%llu - Philosophers stomach are full\n", AC_GRY, time);
 			break ;

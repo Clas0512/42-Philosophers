@@ -6,7 +6,7 @@
 /*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 12:57:41 by anargul           #+#    #+#             */
-/*   Updated: 2023/05/04 13:48:20 by anargul          ###   ########.fr       */
+/*   Updated: 2023/05/04 14:50:42 by anargul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,10 @@ int ft_stomach_check(t_philo *phi)
 	i = 0;
 	while (i < phi->number_of_ph)
 	{
-		//printf("philo %d  --  size of stomach : %d\n", phi->id, phi->size_of_stomach);
-		if (phi[i].size_of_stomach > 0) // burda bi sıkntı var
+		if (phi[i].size_of_stomach > 0)
 			return (0);
 		i++;
 	}
-	//printf("philo %d  --  size of stomach : %d\n", phi->id, phi->size_of_stomach);
 	pthread_mutex_unlock(phi->dth);
 	return (1);
 }

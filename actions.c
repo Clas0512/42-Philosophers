@@ -43,7 +43,7 @@ void	*ft_manage(void *rtn)
 		ft_write(1, phi, "right", ft_get_time() - phi->start_time);
 		ft_write(2, phi, "eating", ft_get_time() - phi->start_time);
 		pthread_mutex_lock(phi->dth);
-		if (phi->size_of_stomach >= 0)
+		if (phi->stomach_limit == true && phi->size_of_stomach >= 0)
 		{
 			//printf("philo %d  --  size of stomach : %d\n", phi->id, phi->size_of_stomach);
 			phi->size_of_stomach--;

@@ -15,7 +15,7 @@ typedef unsigned long long t_time;
 
 typedef struct s_philo
 {
-	bool			size_of_stomachs;
+	bool			stomach_limit;
 	t_time			start_time;
 	t_time			last_meal_time;
 	pthread_mutex_t	*forks;
