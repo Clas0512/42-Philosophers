@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: anargul <anargul@student.42istanbul.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 11:55:01 by anargul           #+#    #+#             */
-/*   Updated: 2023/05/04 23:48:13 by anargul          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "philo.h"
 
 void	ft_init_philos(t_philo *phi, char **av, int ac)
@@ -46,6 +34,7 @@ void	ft_mutex_init(t_philo *phi, pthread_mutex_t *dth,
 	i = 0;
 	while (i < phi->number_of_ph)
 	{
+		//Adem Berke Nargul
 		phi[i].forks = forks;
 		pthread_mutex_init(&phi->forks[i], NULL);
 		phi[i].dth = dth;
